@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>BNOL Next Date</title>
+</head>
+<body style='background-image: linear-gradient(-90deg, #13D899, #918FFF);'>
+	<div style='display: flex; align-items: center; justify-content: center; height: 90vh;'>
+		<h1 id='h1' style='font-size:8em; font-family: Helvetica; color: #4F4F48;'></h1>
+	</div>
+	<script>
+		function getThirdWednesday(monthAdd = 1) {
+			var today = new Date();
+			var month = today.getMonth() + monthAdd;
+			var year = today.getFullYear();
+			var firstDay = new Date(`${month}/1/${year}`);
+			var firstWednesday = getFirstWednesday(firstDay.getDay());
+			return firstWednesday + 14;
+		}
+
+		function getFirstWednesday(firstDay) {
+			switch (firstDay) {
+				case 0:
+					return 4
+				case 1:
+					return 3
+				case 2:
+					return 2
+				case 3:
+					return 1
+				case 4:
+					return 7
+				case 5:
+					return 6
+				case 6:
+					return 5
+			}
+		}
+
+		var thirdWednesday = getThirdWednesday();
+		var month = new Date().getMonth() + 1;
+		var year = new Date().getFullYear();
+		if (new Date().getDate() > thirdWednesday) {
+			thirdWednesday = getThirdWednesday(2);
+			month = month + 1;
+		}
+
+		var displayDate = new Date(`${month}/${thirdWednesday}/${year}`).toLocaleDateString("en-US", {
+			month: "long",
+			day: "2-digit",
+			year: "numeric"
+		});
+
+		document.getElementById('h1').innerHTML = displayDate;
+
+	</script>
+</body>
+</html>
